@@ -4,6 +4,7 @@
 #include <Keypad.h>
 #include <Wire.h>
 #include "oled.h"
+#include "time.h"
 
 /**
   * This file contains all functions needed for the Keypad
@@ -197,7 +198,6 @@ String readKeyPad()
 
   String returnValue=pressedCharacter;
   pressedCharacter="";
-  //return pressedCharacter;
   return returnValue;
 }
 
@@ -223,7 +223,7 @@ int password()
     u8g.firstPage();
     do
     {
-      u8g.setFont(u8g_font_6x10);
+      drawClock();
       u8g.drawStr(u8g.getWidth() / 2 - 36, u8g.getHeight() / 2 - 5, "Enter Passcode:");
       u8g.drawStr(u8g.getWidth() / 2 - 12, u8g.getHeight() / 2 + 10, newCode.c_str());
     } while (u8g.nextPage());
@@ -235,7 +235,7 @@ int password()
   u8g.firstPage();
   do
   {
-    u8g.setFont(u8g_font_6x10);
+    drawClock();
     u8g.drawStr(u8g.getWidth() / 2 - 36, u8g.getHeight() / 2 - 5, "Passcode Set!");
   } while (u8g.nextPage());
 
@@ -262,7 +262,7 @@ int changePassword()
     u8g.firstPage();
     do
     {
-      u8g.setFont(u8g_font_6x10);
+      drawClock();
       u8g.drawStr(u8g.getWidth() / 2 - 36, u8g.getHeight() / 2 - 5, "Enter Passcode:");
       u8g.drawStr(u8g.getWidth() / 2 - 12, u8g.getHeight() / 2 + 10, newCode.c_str());
     } while (u8g.nextPage());
@@ -274,7 +274,7 @@ int changePassword()
   u8g.firstPage();
   do
   {
-    u8g.setFont(u8g_font_6x10);
+    drawClock();
     u8g.drawStr(u8g.getWidth() / 2 - 36, u8g.getHeight() / 2 - 5, "Passcode Set!");
   } while (u8g.nextPage());
 
@@ -282,7 +282,5 @@ int changePassword()
 
   return password;
 }
-
-
 
 #endif
