@@ -11,8 +11,8 @@ String rfidCard;
 */
 
 //rgb variables
-const int redPin=7;
-const int greenPin=5;
+const int redPin=5;
+const int greenPin=7;
 
 //buzzer variables
 const int buzzer=2;
