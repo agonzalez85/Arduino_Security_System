@@ -2,6 +2,7 @@
 #define OLED_H
 
 #include "U8glib.h"
+#include "time.h"
 
 /**
  * This file contains all functions for the OLED display, as well as the variables for the joystick pins
@@ -47,6 +48,18 @@ void drawHelloWorld()
 }
 
 /**
+  *This function prints the current date and time to the OLED
+*/
+void drawClock() 
+{
+  rtcDateTime = clock.getDateTime();
+  String timeString = getTimeString(); // Get the time as a String
+  const char* timeChar = timeString.c_str(); // Convert String to const char*
+  u8g.setFont(u8g_font_6x10);
+  u8g.drawStr(9, 0, timeChar); // Display the time at the top
+}
+
+/**
   * This function prints the menu options to the OLED
 */
 void drawMenu(int selectedOption) 
@@ -54,12 +67,13 @@ void drawMenu(int selectedOption)
   u8g.firstPage();
   do 
   {
-    u8g.setFont(u8g_font_6x10);
+    drawClock();
     u8g.drawStr(0, 15, selectedOption == 1 ? "> Set Alarm" : "  Set Alarm");
     u8g.drawStr(0, 30, selectedOption == 2 ? "> Change Passcode" : "  Change Passcode");
     u8g.drawStr(0, 45, selectedOption == 3 ? "> Set Sensor Distance" : "  Set Sensor Distance");
   } while (u8g.nextPage());
 }
+
 
 /**
   * This function prints 'Alarm is Active' to the OLED
@@ -85,7 +99,7 @@ void drawIntruder()
   u8g.firstPage();
   do
   {
-    u8g.setFont(u8g_font_6x10);
+    drawClock();
     u8g.drawStr(u8g.getWidth() / 2 - 36, u8g.getHeight() / 2 - 5, "Intruder Alert!");
     delay(2000);
   } while (u8g.nextPage()); 
@@ -100,7 +114,7 @@ void drawAccepted()
   u8g.firstPage();
   do
   {
-    u8g.setFont(u8g_font_6x10);
+    drawClock();
     u8g.drawStr(u8g.getWidth() / 2 - 36, u8g.getHeight() / 2 - 5, "Accepted!");
     delay(2000);
   } while (u8g.nextPage()); 
@@ -115,7 +129,7 @@ void drawInvalid()
   u8g.firstPage();
   do
   {
-    u8g.setFont(u8g_font_6x10);
+    drawClock();
     u8g.drawStr(u8g.getWidth() / 2 - 36, u8g.getHeight() / 2 - 5, "Invalid!");
     delay(2000);
   } while (u8g.nextPage()); 
@@ -130,7 +144,7 @@ void drawPassword()
   u8g.firstPage();
   do
   {
-    u8g.setFont(u8g_font_6x10);
+    drawClock();
     u8g.drawStr(u8g.getWidth() / 2 - 36, u8g.getHeight() / 2 - 5, "Passcode Set!");
     delay(2000);
   } while (u8g.nextPage());
@@ -206,7 +220,7 @@ void drawDistanceConfirmation(int distance)
     u8g.setFont(u8g_font_6x10);
     u8g.setCursorPos(0,0);
     u8g.print(distance); // Print the entered distance
-    u8g.drawStr(20,0, "inches");
+    u8g.drawStr(30,30, "inches");
   } while (u8g.nextPage());
 }
 
@@ -219,9 +233,9 @@ void drawAlarmPrompt()
   u8g.firstPage();
   do
   {
-    u8g.setFont(u8g_font_6x10);
+    drawClock();
     u8g.drawStr(0,15, "> Enter Passcode?");
-    u8g.drawStr(0,30, "Or Scan Tag");
+    u8g.drawStr(0,30, "  Or Scan Tag");
   } while (u8g.nextPage());
 }
 
