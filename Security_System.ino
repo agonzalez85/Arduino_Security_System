@@ -6,7 +6,6 @@
 #include "oled.h"
 #include "sensor.h"
 #include "keys.h"
-//#include "time.h"
 #include <Wire.h>
 #include <DS3231.h>
 
@@ -25,7 +24,7 @@
   * The alarm is triggered when an intruder enters the sensor distance, indicated by a red LED and alarm sound
   * 
   * @author Andy Gonzalez
-  * @date July 23, 2023
+  * @date November 10, 2023
 */
 
 //Variables to control system state
