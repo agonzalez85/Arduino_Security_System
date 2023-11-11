@@ -6,6 +6,9 @@
 #include "oled.h"
 #include "sensor.h"
 #include "keys.h"
+//#include "time.h"
+#include <Wire.h>
+#include <DS3231.h>
 
 /**
   * Security System Program with Arduino Nano
@@ -29,6 +32,7 @@
 bool alarmSet=false;
 bool tagScanned=false;
 bool correctCode=false;
+
 
 void setup() 
 {
@@ -60,6 +64,11 @@ void setup()
   Wire.beginTransmission(0x20); //addres of PCF8574T expander module
   Wire.write(0xFF); //sets all pins high (pull-up resistor enabled)
   Wire.endTransmission();
+
+  //Clock
+  Serial.println("Initialize RTC Module");
+  clock.begin(); //initialize clock
+  clock.setDateTime(__DATE__, __TIME__);  //Manuel (YYYY, MM, DD, HH, II, SS)
 
 }
 
